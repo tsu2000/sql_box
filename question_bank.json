@@ -1,0 +1,19 @@
+[
+    {
+      "id": "Q1: Top 3 Customers with Most Points",
+      "question_description": "Select the full name and the number of points of the top 3 customers that have the most points starting with the customer with the most points.",
+      "table_details": {"Schema(s) used": ["sql_store"], "Table(s) involved": [["customers"]]},
+      "all_tables": ["sql_store.customers"],
+      "column_types":[{"first_name": "VARCHAR", "last_name": "VARCHAR", "points": "INT"}],
+      "correct_answer": "SELECT CONCAT(first_name, ' ', last_name) AS full_name, points FROM sql_store.customers ORDER BY points DESC LIMIT 3"
+    },
+    {
+        "id": "Q2: Unique states of residence for all customers",
+        "question_description": "Count the total number of distinct states that all customers are from.",
+        "table_details": {"Schema(s) used": ["sql_store"], "Table(s) involved": [["customers"]]},
+        "all_tables": ["sql_store.customers"],
+        "column_types":[{"state": "CHAR(2)"}],
+        "correct_answer": "SELECT COUNT(DISTINCT state) AS num_distinct_states FROM sql_store.customers"
+    }
+  ]
+  
