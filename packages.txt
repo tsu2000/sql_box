@@ -1,2 +1,2 @@
 pkg-config
-libmysqlclient-dev
+libmariadb-dev-compat
