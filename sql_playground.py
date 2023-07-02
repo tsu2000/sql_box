@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import sqlalchemy
+import mysqlclient 
 
 import io
 import requests
