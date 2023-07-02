@@ -5,6 +5,8 @@ import io
 import requests
 import json
 import sqlalchemy
+import mysql.connector
+import mysql_connector_python
 
 from PIL import Image
 from streamlit_extras.badges import badge
