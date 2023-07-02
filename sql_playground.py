@@ -28,7 +28,7 @@ def main():
     st.markdown('A simple web app for learning the basics of SQL using a sample database and schemas from a MySQL server. Only one SQL query can be executed at the time. To execute a SQL query, type your query into the text area and click `Execute` to see the results. There are currently **2** questions available to practice basic SQL queries. **Note:** Do not use the `USE` keyword when referring to different schemas. Instead, select tables using the `schema + table` notation. (i.e. `sql_store.customers`)')
 
     # Connect to MySQL Database
-    engine = create_engine(f"mysql+mysqlconnector://{st.secrets['db_username']}:{st.secrets['db_password']}@{st.secrets['db_hostname']}:{st.secrets['db_port']}/{st.secrets['db_name']}")
+    engine = create_engine(f"mysql+mysqlconnector://{st.secrets['db_username']}:{st.secrets['db_password']}@{st.secrets['db_hostname']}:{st.secrets['db_port']}")
     
     opt = st.selectbox('Select a feature:', ['All MySQL Query Practice Questions', 'About Database'])
 
