@@ -4,8 +4,6 @@ import pandas as pd
 import io
 import requests
 import json
-import sqlalchemy
-import mysql.connector
 
 from PIL import Image
 from streamlit_extras.badges import badge
@@ -32,6 +30,8 @@ def main():
     conn = st.experimental_connection('mysql', type = 'sql')
     
     opt = st.selectbox('Select a feature:', ['All MySQL Query Practice Questions', 'About Database'])
+
+    st.write(conn)
 
     st.write('---')
     
