@@ -4,6 +4,7 @@ requests==2.28.1
 json5==0.9.6
 Pillow==9.2.0
 sqlalchemy==2.0.17
+mysqlclient==2.2.0
 streamlit_extras==0.2.4
 mysql-connector==2.2.9
 mysql-connector-python==8.0.29
