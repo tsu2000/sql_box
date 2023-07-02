@@ -1,2 +1,1 @@
-pkg-config
 libmariadb-dev-compat
