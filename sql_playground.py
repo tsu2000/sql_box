@@ -4,7 +4,6 @@ import pandas as pd
 import io
 import requests
 import json
-import mysqlclient
 import sqlalchemy
 
 from PIL import Image
