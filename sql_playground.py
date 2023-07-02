@@ -5,7 +5,6 @@ import io
 import requests
 import json
 
-from sqlalchemy import create_engine, text
 from PIL import Image
 from streamlit_extras.badges import badge
 
@@ -28,16 +27,16 @@ def main():
     st.markdown('A simple web app for learning the basics of SQL using a sample database and schemas from a MySQL server. Only one SQL query can be executed at the time. To execute a SQL query, type your query into the text area and click `Execute` to see the results. There are currently **2** questions available to practice basic SQL queries. **Note:** Do not use the `USE` keyword when referring to different schemas. Instead, select tables using the `schema + table` notation. (i.e. `sql_store.customers`)')
 
     # Connect to MySQL Database
-    engine = create_engine(f"mysql+mysqlconnector://{st.secrets['db_username']}:{st.secrets['db_password']}@{st.secrets['db_hostname']}:{st.secrets['db_port']}/sqlapp")
+    conn = st.experimental_connection('mysql', type = 'sql')
     
     opt = st.selectbox('Select a feature:', ['All MySQL Query Practice Questions', 'About Database'])
 
     st.write('---')
     
     if opt == 'All MySQL Query Practice Questions':
-        questions(engine = engine)
+        questions(engine = conn)
     elif opt == 'About Database':
-        about(engine = engine)
+        about(engine = conn)
 
 
 def questions(engine):
@@ -76,7 +75,7 @@ def questions(engine):
 
         st.markdown('**Correct Answer:**')
         try:
-            cor_ans = pd.DataFrame(engine.connect().execute(text(current_q['correct_answer'])))
+            cor_ans = engine.query(current_q['correct_answer'])
             st.dataframe(cor_ans, use_container_width = True, hide_index = True)
 
         except Exception as e:
@@ -88,7 +87,7 @@ def questions(engine):
         sql_query = st.text_area("Enter your SQL query (single query allowed only):", "SELECT * \nFROM sql_store.customers", height = 250)
         if st.button("Execute"):
             try:
-                result = pd.DataFrame(engine.connect().execute(text(sql_query)))
+                result = engine.query(sql_query)
                 st.dataframe(result, use_container_width = True, hide_index = True)
 
             except Exception as e:
@@ -116,7 +115,7 @@ def about(engine):
     for name in table_names:
         try:
             st.markdown(f"### {schema_opt}.{name}")
-            full_table = pd.DataFrame(engine.connect().execute(text(f"SELECT * FROM {schema_opt}.{name}")))
+            full_table = engine.query(f"SELECT * FROM {schema_opt}.{name}")
             st.dataframe(full_table, use_container_width = True, hide_index = True)
 
         except Exception as e:
