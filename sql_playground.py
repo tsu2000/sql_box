@@ -78,7 +78,7 @@ def questions(engine):
 
         st.markdown('**Correct Answer:**')
         try:
-            cor_ans = engine.query(current_q['correct_answer'])
+            cor_ans = engine.connect().execute(text(current_q['correct_answer']))
             st.dataframe(cor_ans, use_container_width = True, hide_index = True)
 
         except Exception as e:
@@ -90,7 +90,7 @@ def questions(engine):
         sql_query = st.text_area("Enter your SQL query (single query allowed only):", "SELECT * \nFROM sql_store.customers", height = 250)
         if st.button("Execute"):
             try:
-                result = engine.query(sql_query)
+                result = engine.connect().execute(text(sql_query))
                 st.dataframe(result, use_container_width = True, hide_index = True)
 
             except Exception as e:
@@ -118,7 +118,7 @@ def about(engine):
     for name in table_names:
         try:
             st.markdown(f"### {schema_opt}.{name}")
-            full_table = engine.query(f"SELECT * FROM {schema_opt}.{name}")
+            full_table = engine.connect().execute(text(f"SELECT * FROM {schema_opt}.{name}"))
             st.dataframe(full_table, use_container_width = True, hide_index = True)
 
         except Exception as e:
