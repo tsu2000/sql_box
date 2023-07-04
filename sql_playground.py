@@ -7,6 +7,7 @@ import json
 
 from PIL import Image
 from streamlit_extras.badges import badge
+from sqlalchemy import create_engine, text
 
 def main():
 
@@ -27,7 +28,7 @@ def main():
     st.markdown('A simple web app for learning the basics of SQL using a sample database and schemas from a MySQL server. Only one SQL query can be executed at the time. To execute a SQL query, type your query into the text area and click `Execute` to see the results. There are currently **2** questions available to practice basic SQL queries. **Note:** Do not use the `USE` keyword when referring to different schemas. Instead, select tables using the `schema + table` notation. (i.e. `sql_store.customers`)')
 
     # Connect to MySQL Database
-    conn = st.experimental_connection('mydb', type = 'sql')
+    conn = create_engine(f"mysql+mysqlconnector://{st.secrets['username']}:{st.secrets['password']}@{st.secrets['hostname']}:3306")
     
     opt = st.selectbox('Select a feature:', ['All MySQL Query Practice Questions', 'About Database'])
 
