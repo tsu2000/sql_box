@@ -4,10 +4,10 @@ import pandas as pd
 import io
 import requests
 import json
+import sqlite3
 
 from PIL import Image
 from streamlit_extras.badges import badge
-from sqlalchemy import create_engine, text
 
 def main():
 
@@ -28,21 +28,19 @@ def main():
     st.markdown('A simple web app for learning the basics of SQL using a sample database and schemas from a MySQL server. Only one SQL query can be executed at the time. To execute a SQL query, type your query into the text area and click `Execute` to see the results. There are currently **2** questions available to practice basic SQL queries. **Note:** Do not use the `USE` keyword when referring to different schemas. Instead, select tables using the `schema + table` notation. (i.e. `sql_store.customers`)')
 
     # Connect to MySQL Database
-    conn = create_engine(f"mysql+mysqlconnector://{st.secrets['username']}:{st.secrets['password']}@{st.secrets['hostname']}:3306")
+    conn = sqlite3.connect('data/sql_app.db')
     
     opt = st.selectbox('Select a feature:', ['All MySQL Query Practice Questions', 'About Database'])
-
-    st.write(conn)
 
     st.write('---')
     
     if opt == 'All MySQL Query Practice Questions':
-        questions(engine = conn)
+        questions(conn = conn)
     elif opt == 'About Database':
-        about(engine = conn)
+        about(conn = conn)
 
 
-def questions(engine):
+def questions(conn):
 
     col_a, col_b = st.columns(2)
 
@@ -78,9 +76,10 @@ def questions(engine):
 
         st.markdown('**Correct Answer:**')
         try:
-            cor_ans = engine.connect().execute(text(current_q['correct_answer']))
+            c = conn.cursor().execute(current_q['correct_answer'])
+            cor_ans = c.fetchall()
             st.dataframe(cor_ans, use_container_width = True, hide_index = True)
-
+            
         except Exception as e:
             st.error(f"Error: {str(e)}")
             st.stop()
@@ -90,7 +89,8 @@ def questions(engine):
         sql_query = st.text_area("Enter your SQL query (single query allowed only):", "SELECT * \nFROM sql_store.customers", height = 250)
         if st.button("Execute"):
             try:
-                result = engine.connect().execute(text(sql_query))
+                user_query = conn.cursor().execute(sql_query)
+                result = user_query.fetchall()
                 st.dataframe(result, use_container_width = True, hide_index = True)
 
             except Exception as e:
@@ -98,7 +98,7 @@ def questions(engine):
                 st.stop()
 
 
-def about(engine):
+def about(conn):
     st.markdown('The sample MySQL Database consists of 4 different schemas simulating company data: `sql_hr`, `sql_inventory`, `sql_invoicing`, and `sql_store`. Each of these schemas has a different number of tables in them. Make your choice in the selectbox to view the full structure and contents of each schema.')
     
     schema_opt = st.selectbox('Select a schema:', ['sql_hr', 'sql_inventory', 'sql_invoicing', 'sql_store'])
@@ -118,7 +118,8 @@ def about(engine):
     for name in table_names:
         try:
             st.markdown(f"### {schema_opt}.{name}")
-            full_table = engine.connect().execute(text(f"SELECT * FROM {schema_opt}.{name}"))
+            table = conn.cursor().execute(f"SELECT * FROM {schema_opt}.{name}")
+            full_table = table.fetchall()
             st.dataframe(full_table, use_container_width = True, hide_index = True)
 
         except Exception as e:
