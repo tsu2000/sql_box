@@ -31,7 +31,7 @@ def main():
     databases = ['sql_hr.sqlite', 'sql_inventory.sqlite', 'sql_invoicing.sqlite', 'sql_store.sqlite']
     
     # Connect to SQLite3 Databases
-    conn = sqlite3.connect('data/sql_store.sqlite')
+    conn = sqlite3.connect('/data/sql_store.sqlite')
     
     # Attach databases
     with conn:
