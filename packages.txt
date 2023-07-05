@@ -1,3 +1,0 @@
-pkg-config
-libmariadb-dev-compat
-libmariadb-dev
