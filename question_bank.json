@@ -5,7 +5,7 @@
       "table_details": {"Schema(s) used": ["sql_store"], "Table(s) involved": [["customers"]]},
       "all_tables": ["sql_store.customers"],
       "column_types":[{"first_name": "VARCHAR", "last_name": "VARCHAR", "points": "INT"}],
-      "correct_answer": "SELECT CONCAT(first_name, ' ', last_name) AS full_name, points FROM customers ORDER BY points DESC LIMIT 3"
+      "correct_answer": "SELECT first_name || ' ' || last_name AS full_name, points FROM customers ORDER BY points DESC LIMIT 3"
     },
     {
         "id": "Q2: Unique states of residence for all customers",
