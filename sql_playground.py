@@ -31,12 +31,12 @@ def main():
     databases = ['sql_hr.sqlite', 'sql_inventory.sqlite', 'sql_invoicing.sqlite', 'sql_store.sqlite']
     
     # Connect to SQLite3 Databases
-    conn = sqlite3.connect('data/sql_store.sqlite')
+    conn = sqlite3.connect('all_schemas.db')
     
     # Attach databases
     with conn:
         for db_file in databases:
-            conn.execute(f"ATTACH DATABASE '{db_file}' AS {db_file.replace('.sqlite', '')}")
+            conn.cursor().execute(f"ATTACH DATABASE '{db_file}' AS {db_file.replace('.sqlite', '')}")
     
     opt = st.selectbox('Select a feature:', ['All MySQL Query Practice Questions', 'About Database'])
 
