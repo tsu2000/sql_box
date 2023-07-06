@@ -34,9 +34,10 @@ def main():
     conn = sqlite3.connect('data/all_schemas.db')
     
     # Attach databases
-    with conn:
-        for db_file in databases:
-            conn.cursor().execute(f"ATTACH DATABASE '{db_file}' AS {db_file.replace('.sqlite', '')}")
+    for db_file in databases:
+        conn2 = sqlite3.connect(f'data/{db_file}')
+        conn.cursor().execute(f"ATTACH DATABASE '{db_file}' AS {db_file.replace('.sqlite', '')}")
+        conn2.close()
 
     # Execute query to get attached databases
     conn.cursor().execute("PRAGMA database_list")
