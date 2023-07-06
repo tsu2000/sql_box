@@ -37,6 +37,15 @@ def main():
     with conn:
         for db_file in databases:
             conn.cursor().execute(f"ATTACH DATABASE '{db_file}' AS {db_file.replace('.sqlite', '')}")
+
+    # Execute query to get attached databases
+    conn.cursor().execute("PRAGMA database_list")
+    
+    # Fetch all rows returned by the query
+    rows = conn.cursor().fetchall()
+
+    for row in rows:
+        st.write(row[1])
     
     opt = st.selectbox('Select a feature:', ['All MySQL Query Practice Questions', 'About Database'])
 
