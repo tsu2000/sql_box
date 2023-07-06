@@ -45,7 +45,7 @@ def main():
     rows = conn.cursor().fetchall()
 
     for row in rows:
-        st.write(row[1])
+        st.write(row)
     
     opt = st.selectbox('Select a feature:', ['All MySQL Query Practice Questions', 'About Database'])
 
