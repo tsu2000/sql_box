@@ -35,7 +35,7 @@ def main():
     
     # Attach databases
     for db_file in databases:
-        conn.cursor().execute(f"ATTACH DATABASE '{db_file}' AS {db_file.replace('.sqlite', '')}")
+        conn.cursor().execute(f"ATTACH DATABASE 'data/{db_file}' AS {db_file.replace('.sqlite', '')}")
     
     opt = st.selectbox('Select a feature:', ['All MySQL Query Practice Questions', 'About Database'])
 
