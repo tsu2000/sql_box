@@ -25,7 +25,7 @@ def main():
     with col3:
         badge(type = 'github', name = 'tsu2000/sql_box', url = 'https://github.com/tsu2000/sql_box')
 
-    st.markdown('A simple web app for learning the basics of SQL using a sample database and schemas from a MySQL server. Only one SQL query can be executed at the time. To execute a SQL query, type your query into the text area and click `Execute` to see the results. There are currently **2** questions available to practice basic SQL queries. **Note:** Do not use the `USE` keyword when referring to different schemas. Instead, select tables using the `schema + table` notation. (i.e. `sql_store.customers`)')
+    st.markdown('A simple web app for learning the basics of SQL using a sample database and schemas from a SQLite3 file. Only one SQL query can be executed at the time. To execute a SQL query, type your query into the text area and click `Execute` to see the results. There are currently **2** questions available to practice basic SQL queries. **Note:** Do not use the `USE` keyword when referring to different schemas. Instead, select tables using the `schema + table` notation. (i.e. `sql_store.customers`)')
 
     # List of database files to be attached
     databases = ['sql_hr.sqlite', 'sql_inventory.sqlite', 'sql_invoicing.sqlite', 'sql_store.sqlite']
@@ -37,11 +37,11 @@ def main():
     for db_file in databases:
         conn.cursor().execute(f"ATTACH DATABASE 'data/{db_file}' AS {db_file.replace('.sqlite', '')}")
     
-    opt = st.selectbox('Select a feature:', ['All MySQL Query Practice Questions', 'About Database'])
+    opt = st.selectbox('Select a feature:', ['All SQLite3 Query Practice Questions', 'About Database'])
 
     st.write('---')
     
-    if opt == 'All MySQL Query Practice Questions':
+    if opt == 'All SQLite3 Query Practice Questions':
         questions(conn = conn)
     elif opt == 'About Database':
         about(conn = conn)
@@ -108,7 +108,7 @@ def questions(conn):
 
 
 def about(conn):
-    st.markdown('The sample MySQL Database consists of 4 different schemas simulating company data: `sql_hr`, `sql_inventory`, `sql_invoicing`, and `sql_store`. Each of these schemas has a different number of tables in them. Make your choice in the selectbox to view the full structure and contents of each schema.')
+    st.markdown('The sample SQLite3 Database consists of 4 different schemas simulating company data: `sql_hr`, `sql_inventory`, `sql_invoicing`, and `sql_store`. Each of these schemas has a different number of tables in them. Make your choice in the selectbox to view the full structure and contents of each schema.')
     
     schema_opt = st.selectbox('Select a schema:', ['sql_hr', 'sql_inventory', 'sql_invoicing', 'sql_store'])
 
