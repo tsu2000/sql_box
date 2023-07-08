@@ -122,7 +122,7 @@ def about(conn):
         table_names = ['clients', 'invoices', 'payment_methods', 'payments']
            
     elif schema_opt == 'sql_store':
-        table_names = ['customers', 'order_item_notes', 'order_items', 'orders', 'order_statuses', 'products', 'shippers']
+        table_names = ['customers', 'order_item_notes', 'order_items', 'orders', 'order_statuses', 'shippers']
         
     for name in table_names:
         try:
