@@ -20,7 +20,7 @@
         "question_description": "Select the order id, product id, product name, order item quantity and order item unit price by merging the 2 tables from the schemas of `sql_inventory` and `sql_store` together.",
         "table_details": {"Schema(s) used": ["sql_store", "sql_inventory"], "Table(s) involved": [["order_items"], ["products"]]},
         "all_tables": ["sql_store.store.order_items", "sql_inventory.products"],
-        "column_types":[{"order_id": "INT", "product_id": "INT", "quantity": "INT", unit_price": "REAL"}, {"product_id": "INT", "name": "VARCHAR"}],
+        "column_types":[{"order_id": "INT", "product_id": "INT", "quantity": "INT", "unit_price": "REAL"}, {"product_id": "INT", "name": "VARCHAR"}],
         "correct_answer": "SELECT order_id, p.product_id, p.name, quantity, oi.unit_price FROM sql_store.order_items oi JOIN sql_inventory.products p ON oi.product_id = p.product_id"
     }
   ]
