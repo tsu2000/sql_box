@@ -85,7 +85,8 @@ def questions(conn):
         try:
             c = conn.cursor().execute(current_q['correct_answer'])
             cor_ans = c.fetchall()
-            st.write(cor_ans)
+            names = [description[0] for description in cursor.description]
+            st.write(names)
             st.dataframe(cor_ans, use_container_width = True, hide_index = True)
             
         except Exception as e:
