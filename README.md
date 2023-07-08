@@ -8,6 +8,7 @@ A simple SQL sandbox playground web app to practice SQL queries on sample data f
 - Database data was mainly taken from this [YouTube Tutorial](<https://www.youtube.com/watch?v=7S_tz1z_5bA>) about MySQL, with slight modifications to suit the nature of the questions in the web app.
 - More questions can be added to the question bank. Submit a pull request to add questions. Questions must be based on the sample data in the database, which you can view at the link to the app below.
 - Certain commands that work in other SQL platforms or editors **may not** work in this application.
+- Only 1 query can be executed at the time, so refrain from entering multiple SQL queries into the data editor.
 
 **Link to Web App**:
 
