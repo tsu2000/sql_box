@@ -85,9 +85,8 @@ def questions(conn):
         try:
             c = conn.cursor().execute(current_q['correct_answer'])
             cor_ans = c.fetchall()
-            names = [description[0] for description in c.description]
-            st.write(c.description)
-            st.dataframe(cor_ans, use_container_width = True, hide_index = True)
+            df = pd.DataFrame(data = cor_ans, columns = [description[0] for description in c.description])
+            st.dataframe(df, use_container_width = True, hide_index = True)
             
         except Exception as e:
             st.error(f"Error: {str(e)}")
@@ -100,7 +99,8 @@ def questions(conn):
             try:
                 user_query = conn.cursor().execute(sql_query)
                 result = user_query.fetchall()
-                st.dataframe(result, use_container_width = True, hide_index = True)
+                result_df = pd.DataFrame(data = result, columns = [description[0] for description in user_query.description])
+                st.dataframe(result_df, use_container_width = True, hide_index = True)
 
             except Exception as e:
                 st.error(f"Error: {str(e)}")
@@ -129,7 +129,8 @@ def about(conn):
             st.markdown(f"### {schema_opt}.{name}")
             table = conn.cursor().execute(f"SELECT * FROM {schema_opt}.{name}")
             full_table = table.fetchall()
-            st.dataframe(full_table, use_container_width = True, hide_index = True)
+            df = pd.DataFrame(data = full_table, columns = [description[0] for description in table.description])
+            st.dataframe(df, use_container_width = True, hide_index = True)
 
         except Exception as e:
             st.error(f"Error: {str(e)}")
