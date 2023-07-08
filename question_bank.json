@@ -16,7 +16,7 @@
         "correct_answer": "SELECT COUNT(DISTINCT state) AS num_distinct_states FROM sql_store.customers"
     },
     {
-        "id": "Q3: Unique states of residence for all customers",
+        "id": "Q3: Get product names from product id in order items",
         "question_description": "Select the order id, product id, product name, order item quantity and order item unit price by merging the 2 tables from the schemas of `sql_inventory` and `sql_store` together.",
         "table_details": {"Schema(s) used": ["sql_store", "sql_inventory"], "Table(s) involved": [["order_items"], ["products"]]},
         "all_tables": ["sql_store.store.order_items", "sql_inventory.products"],
